@@ -5,6 +5,7 @@
     padding: 1rem 2rem;
     background-color: #333;
     color: #fff;
+    height: var(--navbar-height);
   }
   
   .navbar-brand a {
