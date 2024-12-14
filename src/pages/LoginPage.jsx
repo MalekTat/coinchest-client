@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Popup from '../components/Popup'; // Import Popup component
+import { AuthContext } from '../context/AuthContext'; // Use context for authentication state
 import '../styles/LoginPage.css';
 import { SERVER_BaseURL } from '../config';
 
@@ -8,16 +10,23 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [showPopup, setShowPopup] = useState(false);
+  const { login } = useContext(AuthContext); // Get login function from context
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post(`${SERVER_BaseURL}/api/auth/login`, { email, password });
-      localStorage.setItem('token', response.data.token);
-      navigate('/');
+      
+      // Save token and user info to context
+      const { authToken, user } = response.data;
+      login(authToken, user);
+
+      navigate('/dashboard');
     } catch (err) {
       setError(err.response?.data?.message || 'An error occurred.');
+      setShowPopup(true);
     }
   };
 
@@ -25,7 +34,7 @@ const Login = () => {
     <div className="login-container-wrapper">
       <div className="login-container">
         <h2>Login</h2>
-        {error && <p className="error">{error}</p>}
+        {showPopup && <Popup message={error} onClose={() => setShowPopup(false)} />}
         <form onSubmit={handleSubmit}>
           <input
             type="email"

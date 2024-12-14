@@ -1,31 +1,123 @@
+/* General Navbar Styling */
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-    background-color: #333;
-    color: #fff;
-    height: var(--navbar-height);
-  }
-  
-  .navbar-brand a {
-    color: #fff;
-    font-size: 1.5rem;
-    text-decoration: none;
-  }
-  
-  .navbar-links {
-    list-style: none;
-    display: flex;
-    gap: 1rem;
-  }
-  
-  .navbar-links a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 1rem;
-  }
-  
-  .navbar-links a:hover {
-    color: #00bcd4;
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: var(--navbar-bg-color, #333);
+  color: white;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  margin: 0 1rem;
+}
+
+.navbar ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar li {
+  margin: 0 0.5rem;
+}
+
+.navbar .navbar-brand a {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.profile-menu {
+  position: relative;
+  cursor: pointer;
+}
+
+.profile-photo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid white;
+}
+
+.profile-dropdown {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background-color: white;
+  color: black;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 1rem;
+  width: 220px;
+  z-index: 1000;
+}
+
+.profile-dropdown .dropdown-group {
+  margin-bottom: 1rem;
+}
+
+.profile-dropdown .dropdown-group a,
+.profile-dropdown .dropdown-item {
+  display: block;
+  padding: 0.5rem 0;
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.profile-dropdown .dropdown-group a:hover,
+.profile-dropdown .dropdown-item:hover {
+  color: var(--primary-color, #00bcd4);
+}
+
+hr {
+  margin: 0.5rem 0;
+  border: none;
+  border-top: 1px solid #ddd;
+}
+
+.logout {
+  color: red;
+}
+
+/* Submenu Styling */
+.settings {
+  position: relative;
+}
+
+.submenu {
+  position: absolute;
+  top: 0; /* Align submenu with Settings */
+  left: -250px; /* Move submenu to the left of the main menu */
+  background-color: #f9f9f9;
+  padding: 0.5rem;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: none;
+  z-index: 1000;
+}
+
+/* Keep submenu open when hovering over Settings or submenu */
+.settings:hover .submenu,
+.submenu:hover {
+  display: block;
+}
+
+.submenu-item {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+.submenu-item:hover {
+  background-color: #eee;
+}
+
+.submenu-item svg {
+  margin-right: 0.5rem;
+}

@@ -46,3 +46,20 @@ video {
   --navbar-height: 60px; 
   --footer-height: 80px; 
 }
+
+/*
+body.light {
+  --navbar-bg-color: #fff;
+  --text-color: #333;
+  --primary-color: #00bcd4;
+  background-color: #f9f9f9;
+  color: var(--text-color);
+}
+
+body.dark {
+  --navbar-bg-color: #333;
+  --text-color: #fff;
+  --primary-color: #019aa8;
+  background-color: #121212;
+  color: var(--text-color);
+}
