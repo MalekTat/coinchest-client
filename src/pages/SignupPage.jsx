@@ -5,7 +5,7 @@ import "../styles/SignupPage.css";
 import Popup from "../components/Popup"; 
 import { SERVER_BaseURL } from "../config";
 
-const Signup = () => {
+const SignupPage = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -85,4 +85,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default SignupPage;

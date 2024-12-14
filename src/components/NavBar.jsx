@@ -10,6 +10,8 @@ import '../styles/NavBar.css';
 const NavBar = () => {
   const { user, logout, toggleTheme, toggleCurrency, theme, currency } = useContext(AuthContext);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [submenuOpen, setSubmenuOpen] = useState(false);
+  const submenuTimeout = useRef(null);
   const menuRef = useRef(null);
   const navigate = useNavigate();
 
@@ -28,6 +30,17 @@ const NavBar = () => {
     logout();
     navigate("/"); // Redirect to home page
     setMenuOpen(false); // Close menu on logout
+  };
+
+  const handleMouseEnterSubmenu = () => {
+    clearTimeout(submenuTimeout.current); 
+    setSubmenuOpen(true);
+  };
+
+  const handleMouseLeaveSubmenu = () => {
+    submenuTimeout.current = setTimeout(() => {
+      setSubmenuOpen(false); // Close submenu after delay
+    }, 200); // Adjust delay as needed
   };
 
   return (
@@ -61,8 +74,13 @@ const NavBar = () => {
                 {/* Second Group: Settings */}
                 <div className="dropdown-group">
                   <Link to="/profile" onClick={() => setMenuOpen(false)}>Edit Profile</Link>
-                  <div className="dropdown-item settings">
+                  <div 
+                    className="dropdown-item settings"
+                    onMouseEnter={handleMouseEnterSubmenu}
+                    onMouseLeave={handleMouseLeaveSubmenu}
+                  >
                     Settings
+                    {submenuOpen && (
                     <div className="submenu">
                       <div className="submenu-item" onClick={toggleTheme}>
                         <FontAwesomeIcon icon={theme === "light" ? faSun : faMoon} />{" "}
@@ -73,6 +91,7 @@ const NavBar = () => {
                         {currency === "USD" ? "Switch to Euro" : "Switch to USD"}
                       </div>
                     </div>
+                    )}
                   </div>
                 </div>
                 <hr />

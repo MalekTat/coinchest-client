@@ -7,7 +7,7 @@ import realtime from '../assets/realtime.jpg';
 import singlePersonDashboard from '../assets/single-person-dashboard.png';
 import teamDashboard from '../assets/team-dashboard.png';
 
-const Home = () => {
+const HomePage = () => {
 
 
   useEffect(() => {
@@ -81,4 +81,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomePage;

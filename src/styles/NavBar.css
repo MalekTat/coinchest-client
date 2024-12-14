@@ -52,12 +52,16 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   padding: 1rem;
-  width: 220px;
+  width: 170px;
+  height: 300px;
   z-index: 1000;
 }
 
 .profile-dropdown .dropdown-group {
   margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .profile-dropdown .dropdown-group a,
@@ -80,7 +84,11 @@ hr {
   border-top: 1px solid #ddd;
 }
 
-.logout {
+.dropdown-item.logout {
+  color: red; 
+}
+
+.dropdown-item.logout:hover{
   color: red;
 }
 
@@ -91,21 +99,20 @@ hr {
 
 .submenu {
   position: absolute;
-  top: 0; /* Align submenu with Settings */
-  left: -250px; /* Move submenu to the left of the main menu */
-  background-color: #f9f9f9;
+  top: 0; 
+  left: -260px; /* Adjust submenu position relative to parent */
+  background-color: white;
+  color: black;
   padding: 0.5rem;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  display: none;
   z-index: 1000;
+  min-width: 200px; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-/* Keep submenu open when hovering over Settings or submenu */
-.settings:hover .submenu,
-.submenu:hover {
-  display: block;
-}
 
 .submenu-item {
   display: flex;
@@ -115,8 +122,10 @@ hr {
 }
 
 .submenu-item:hover {
-  background-color: #eee;
-}
+  color: #00bcd4;  
+ }
+
+
 
 .submenu-item svg {
   margin-right: 0.5rem;

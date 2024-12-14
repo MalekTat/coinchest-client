@@ -6,7 +6,7 @@ import { AuthContext } from '../context/AuthContext'; // Use context for authent
 import '../styles/LoginPage.css';
 import { SERVER_BaseURL } from '../config';
 
-const Login = () => {
+const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -60,4 +60,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginPage;

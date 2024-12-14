@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }) => {
   const toggleCurrency = () => setCurrency((prev) => (prev === "USD" ? "EUR" : "USD"));
 
   return (
-    <AuthContext.Provider value={{ authToken, user, currency, theme, login, logout, toggleTheme, toggleCurrency }}>
+    <AuthContext.Provider value={{ authToken, user, setUser, currency, theme, login, logout, toggleTheme, toggleCurrency }}>
       {children}
     </AuthContext.Provider>
   );
