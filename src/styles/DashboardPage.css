@@ -1,0 +1,82 @@
+/* General Styling */
+.dashboard-page {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Header Styling */
+  .dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  
+  .crypto-info {
+    display: flex;
+    align-items: center;
+  }
+  
+  .crypto-image {
+    width: 50px;
+    height: 50px;
+    margin-right: 1rem;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .crypto-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .crypto-selector {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: white;
+    color: #333;
+    cursor: pointer;
+  }
+  
+  .crypto-selector:focus {
+    border-color: #00bcd4;
+    outline: none;
+    box-shadow: 0 0 4px rgba(0, 188, 212, 0.4);
+  }
+  
+  /* Chart Container */
+  .chart-container {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Loading Message */
+  .chart-container p {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #555;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .dashboard-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .crypto-selector {
+      margin-top: 1rem;
+      width: 100%;
+    }
+  }
+  

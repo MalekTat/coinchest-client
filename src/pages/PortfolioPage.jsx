@@ -9,9 +9,10 @@ const PortfolioPage = () => {
   const { currency } = useContext(AuthContext);
   const [portfolio, setPortfolio] = useState([]);
   const [cryptoList, setCryptoList] = useState([]);
-  const [formData, setFormData] = useState({ coinId: '', amount: '', purchasePrice: '' });
+  const [formData, setFormData] = useState({ cryptoId: '', amount: '', price: '' });
   const [modalOpen, setModalOpen] = useState(false);
-  const [editingItem, setEditingItem] = useState(null);
+  const [isBuying, setIsBuying] = useState(true);
+  const [selectedCrypto, setSelectedCrypto] = useState(null);
   const [chartData, setChartData] = useState([]);
   const [profitLossData, setProfitLossData] = useState([]);
 
@@ -20,17 +21,18 @@ const PortfolioPage = () => {
     fetchCryptoList();
   }, [currency]);
 
-  // Fetch portfolio data
   const fetchPortfolio = async () => {
     try {
       const response = await axios.get(`${SERVER_BaseURL}/api/portfolio`, {
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+        headers: { authorization: `Bearer ${localStorage.getItem('token')}` },
       });
-      const data = response.data.map((item) => ({
-        ...item,
-        totalValue: currency === 'USD' ? item.totalValueUSD : item.totalValueEUR,
-        profitLoss: currency === 'USD' ? item.profitLossUSD : item.profitLossEUR,
-      }));
+      const data = response.data
+        .filter((item) => item.amount > 0)  
+        .map((item) => ({
+          ...item,
+          totalValue: currency === 'USD' ? item.totalValueUSD : item.totalValueEUR,
+          profitLoss: currency === 'USD' ? item.profitLossUSD : item.profitLossEUR,
+        }));
       setPortfolio(data);
       prepareCharts(data);
     } catch (err) {
@@ -38,17 +40,15 @@ const PortfolioPage = () => {
     }
   };
 
-  // Fetch top cryptocurrencies for dropdown
   const fetchCryptoList = async () => {
     try {
-      const response = await axios.get('/api/crypto/top');
+      const response = await axios.get(`${SERVER_BaseURL}/api/crypto/top`);
       setCryptoList(response.data);
     } catch (err) {
       console.error('Error fetching crypto list:', err.message);
     }
   };
 
-  // Prepare data for charts
   const prepareCharts = (data) => {
     const pieData = data.map((item) => ({
       name: item.cryptoId,
@@ -62,102 +62,70 @@ const PortfolioPage = () => {
     setProfitLossData(barData);
   };
 
-  // Handle form input changes
   const handleInputChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+
+    if (name === 'cryptoId') {
+      const selected = cryptoList.find((crypto) => crypto.id === value);
+      setSelectedCrypto(selected);
+    }
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      if (editingItem) {
-        await axios.put(`${SERVER_BaseURL}/api/portfolio/${editingItem._id}`, formData, {
-          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-        });
-      } else {
-        await axios.post(`${SERVER_BaseURL}/api/portfolio`, formData, {
-          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-        });
-      }
+      const url = isBuying ? `${SERVER_BaseURL}/api/portfolio/buy` : `${SERVER_BaseURL}/api/portfolio/sell`;
+      await axios.post(url, formData, {
+        headers: { authorization: `Bearer ${localStorage.getItem('token')}` },
+      });
       setModalOpen(false);
-      setFormData({ coinId: '', amount: '', purchasePrice: '' });
+      setFormData({ cryptoId: '', amount: '', price: '' });
+      setSelectedCrypto(null);
       fetchPortfolio();
     } catch (err) {
       console.error('Error saving portfolio item:', err.message);
     }
   };
 
-  // Handle delete portfolio item
-  const handleDelete = async (id) => {
-    try {
-      await axios.delete(`${SERVER_BaseURL}/api/portfolio/${id}`, {
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-      });
-      fetchPortfolio();
-    } catch (err) {
-      console.error('Error deleting portfolio item:', err.message);
-    }
-  };
-
   return (
     <div className="portfolio-page">
-      <div className="portfolio-header">
-        <h2>Portfolio</h2>
-        <button onClick={() => { setEditingItem(null); setModalOpen(true); }}>Add Portfolio</button>
-      </div>
-
       <div className="portfolio-content">
         {/* Portfolio List */}
-        <div className="portfolio-list">
-          <table>
-            <thead>
-              <tr>
-                <th>Coin</th>
-                <th>Amount</th>
-                <th>Current Price ({currency})</th>
-                <th>Total Value</th>
-                <th>Profit/Loss</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
+        <div className="portfolio-list-container">
+          {/* Buy/Sell Buttons */}
+          <div className="portfolio-actions">
+            <button className="buy-button" onClick={() => { setIsBuying(true); setModalOpen(true); }}>Buy</button>
+            <button className="sell-button" onClick={() => { setIsBuying(false); setModalOpen(true); }}>Sell</button>
+          </div>
+          <div className="portfolio-list">
+            <div className="portfolio-headers">
+              <span className="header-amount">Amount</span>
+              <span className="header-value">Value</span>
+              <span className="header-profit">Profit/Loss</span>
+            </div>
+
+            <ul>
               {portfolio.map((item) => (
-                <tr key={item.cryptoId}>
-                  <td>
-                    <img src={item.image} alt={item.cryptoId} className="crypto-image" />
-                    {item.cryptoId}
-                  </td>
-                  <td>{item.amount}</td>
-                  <td>{currency === 'USD' ? `$${item.currentPriceUSD}` : `€${item.currentPriceEUR}`}</td>
-                  <td>{currency === 'USD' ? `$${item.totalValueUSD}` : `€${item.totalValueEUR}`}</td>
-                  <td>{currency === 'USD' ? `$${item.profitLossUSD}` : `€${item.profitLossEUR}`}</td>
-                  <td>
-                    <button onClick={() => { setEditingItem(item); setModalOpen(true); }}>Edit</button>
-                    <button onClick={() => handleDelete(item._id)}>Delete</button>
-                  </td>
-                </tr>
+                <li key={item.cryptoId} className="portfolio-item">
+                  <img src={item.image} alt={item.name} className="crypto-image" />
+                  <span className="crypto-name">{item.name}</span>
+                  <span className="crypto-amount">{item.amount}</span>
+                  <span className="crypto-value">{item.totalValue}</span>
+                  <span className="crypto-profit">{item.profitLoss}</span>
+                </li>
               ))}
-            </tbody>
-          </table>
+            </ul>
+          </div>
         </div>
 
         {/* Charts Section */}
         <div className="portfolio-charts">
           <ResponsiveContainer width="100%" height={300}>
             <PieChart>
-              <Pie
-                data={chartData}
-                dataKey="value"
-                nameKey="name"
-                cx="50%"
-                cy="50%"
-                outerRadius={100}
-                fill="#8884d8"
-                label
-              >
+              <Pie data={chartData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={100} fill="#8884d8">
                 {chartData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'][index % 5]} />
+                  <Cell key={`cell-${index}`} fill={['#FF6384', '#36A2EB', '#FFCE56'][index % 3]} />
                 ))}
               </Pie>
               <Tooltip />
@@ -171,20 +139,25 @@ const PortfolioPage = () => {
               <YAxis />
               <Tooltip />
               <Legend />
-              <Bar dataKey="profit" fill="#82ca9d" />
+              <Bar dataKey="profit">
+                {profitLossData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={entry.profit >= 0 ? '#82ca9d' : '#f44336'} />
+                ))}
+              </Bar>
             </BarChart>
           </ResponsiveContainer>
         </div>
       </div>
 
-      {/* Add/Edit Modal */}
+
+      {/* Modal for Buy/Sell */}
       {modalOpen && (
         <div className="modal">
           <form onSubmit={handleSubmit}>
             <label>
-              Coin:
-              <select name="coinId" value={formData.coinId} onChange={handleInputChange} required>
-                <option value="">Select a Coin</option>
+              Select Crypto:
+              <select name="cryptoId" value={formData.cryptoId} onChange={handleInputChange} required>
+                <option value="">Choose a Crypto</option>
                 {cryptoList.map((crypto) => (
                   <option key={crypto.id} value={crypto.id}>
                     {crypto.name}
@@ -192,15 +165,21 @@ const PortfolioPage = () => {
                 ))}
               </select>
             </label>
+            {selectedCrypto && (
+              <div className="crypto-preview">
+                <img src={selectedCrypto.image} alt={selectedCrypto.name} />
+                <span>{selectedCrypto.name}</span>
+              </div>
+            )}
             <label>
               Amount:
               <input type="number" name="amount" value={formData.amount} onChange={handleInputChange} required />
             </label>
             <label>
-              Purchase Price:
-              <input type="number" name="purchasePrice" value={formData.purchasePrice} onChange={handleInputChange} required />
+              {isBuying ? 'Purchase Price' : 'Sell Price'}:
+              <input type="number" name="price" value={formData.price} onChange={handleInputChange} required />
             </label>
-            <button type="submit">Save</button>
+            <button type="submit">{isBuying ? 'Buy' : 'Sell'}</button>
             <button type="button" onClick={() => setModalOpen(false)}>Cancel</button>
           </form>
         </div>

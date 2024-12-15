@@ -84,44 +84,50 @@ const ProfileEditPage = () => {
           alt="Profile"
           className="profile-photo-preview"
         />
-        <label htmlFor="profilePhoto" className="upload-label">
-          Upload New Photo
-          <input
-            type="file"
-            id="profilePhoto"
-            onChange={handleFileChange}
-            accept="image/*"
-            hidden
-          />
-        </label>
+        <button className="upload-button" onClick={() => document.getElementById('profilePhoto').click()}>
+          ...
+        </button>
+        <input
+          type="file"
+          id="profilePhoto"
+          onChange={handleFileChange}
+          accept="image/*"
+          hidden
+        />
       </div>
       <form onSubmit={handleSubmit} encType="multipart/form-data" className="edit-profile-form">
-        <label htmlFor="username">Username:</label>
-        <input
-          type="text"
-          id="username"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          required
-        />
-        <label htmlFor="email">Email:</label>
-        <input
-          type="email"
-          id="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <label htmlFor="password">New Password (Optional):</label>
-        <input
-          type="password"
-          id="password"
-          placeholder="New Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+        <div className="form-group">
+          <label htmlFor="username">Username:</label>
+          <input
+            type="text"
+            id="username"
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="password">New Password:</label>
+          <input
+            type="password"
+            id="password"
+            placeholder="New Password (Optional)"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
         <button type="submit" className="save-button">Save Changes</button>
       </form>
       <button className="delete-account-button" onClick={() => setShowConfirmation(true)}>
