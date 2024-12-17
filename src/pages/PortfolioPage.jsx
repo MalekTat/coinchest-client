@@ -13,6 +13,7 @@ const PortfolioPage = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [isBuying, setIsBuying] = useState(true);
   const [selectedCrypto, setSelectedCrypto] = useState(null);
+  const [currentPrice, setCurrentPrice] = useState(null);
   const [chartData, setChartData] = useState([]);
   const [profitLossData, setProfitLossData] = useState([]);
 
@@ -49,6 +50,17 @@ const PortfolioPage = () => {
     }
   };
 
+  const fetchCurrentPrice = async (cryptoId) => {
+    try {
+      const response = await axios.get(`${SERVER_BaseURL}/api/crypto/${cryptoId}`);
+      setCurrentPrice(response.data.market_data.current_price.usd);
+    } catch (err) {
+      console.error('Error fetching current price:', err.message);
+    }
+  };
+
+
+
   const prepareCharts = (data) => {
     const pieData = data.map((item) => ({
       name: item.cryptoId,
@@ -69,6 +81,7 @@ const PortfolioPage = () => {
     if (name === 'cryptoId') {
       const selected = cryptoList.find((crypto) => crypto.id === value);
       setSelectedCrypto(selected);
+      fetchCurrentPrice(value);
     }
   };
 
@@ -177,7 +190,7 @@ const PortfolioPage = () => {
             </label>
             <label>
               {isBuying ? 'Purchase Price' : 'Sell Price'}:
-              <input type="number" name="price" value={formData.price} onChange={handleInputChange} required />
+              <input type="number" name="price" value={formData.price || (currentPrice ? currentPrice.toFixed(2) : '')} onChange={handleInputChange} required />
             </label>
             <button type="submit">{isBuying ? 'Buy' : 'Sell'}</button>
             <button type="button" onClick={() => setModalOpen(false)}>Cancel</button>
