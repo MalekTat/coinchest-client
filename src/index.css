@@ -47,19 +47,38 @@ video {
   --footer-height: 80px; 
 }
 
-/*
-body.light {
-  --navbar-bg-color: #fff;
+/* Light/Dark Mode Support */
+:root {
+  --background-color: #f9f9f9;
   --text-color: #333;
-  --primary-color: #00bcd4;
-  background-color: #f9f9f9;
-  color: var(--text-color);
+  --navbar-bg-color: #333;
+  --navbar-text-color: #fff;
+  --navbar-highlight-color: #00bcd4;
+  --hero-primary-color: #ff7eb9;
+  --hero-secondary-color: #ffd36b;
+  --hero-text-color: #fff;
+  --hero-button-bg: #ff7eb9;
+  --hero-button-hover-bg: #ff5ea0;
+  --button-text-color: #fff;
+  --card-background-color: #fff;
+  --feature-bg: #fff8e1;
+  --feature-card-bg: #ffffff;
+  --feature-highlight-color: #ff5ea0;
 }
 
 body.dark {
-  --navbar-bg-color: #333;
-  --text-color: #fff;
-  --primary-color: #019aa8;
-  background-color: #121212;
-  color: var(--text-color);
+  --background-color: #121212;
+  --text-color: #e0e0e0;
+  --navbar-bg-color: #121212;
+  --navbar-text-color: #e0e0e0;
+  --navbar-highlight-color: #00bcd4;
+  --hero-primary-color: #333;
+  --hero-secondary-color: #555;
+  --hero-text-color: #ddd;
+  --hero-button-bg: #333;
+  --hero-button-hover-bg: #444;
+  --card-background-color: #1e1e1e;
+  --feature-bg: #1e1e1e;
+  --feature-card-bg: #222;
+  --feature-highlight-color: #00bcd4;
 }

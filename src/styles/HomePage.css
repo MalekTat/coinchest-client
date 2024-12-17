@@ -1,7 +1,9 @@
 /* General Styles */
 .home {
-  font-family: 'Arial', sans-serif;
-  color: #333;
+  font-family: 'Comic Sans MS', 'Baloo 2', Arial, sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
   line-height: 1.6;
 }
 
@@ -11,8 +13,11 @@
   align-items: center;
   justify-content: space-between;
   padding: 4rem 2rem;
-  background: linear-gradient(to right, #00bcd4, #019aa8);
-  color: #fff;
+  background: linear-gradient(135deg, var(--hero-primary-color), var(--hero-secondary-color));
+  color: var(--hero-text-color);
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
 }
 
 .hero-content {
@@ -20,7 +25,7 @@
 }
 
 .hero-content h1 {
-  font-size: 3rem;
+  font-size: 3.5rem;
   margin-bottom: 1rem;
 }
 
@@ -36,30 +41,21 @@
 
 .hero-btn {
   padding: 0.8rem 2rem;
-  border-radius: 5px;
+  border-radius: 20px;
   text-decoration: none;
   font-size: 1rem;
-  color: #fff;
+  color: var(--button-text-color);
+  background-color: var(--hero-button-bg);
+  transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
-.primary-btn {
-  background-color: #019aa8;
-}
-
-.primary-btn:hover {
-  background-color: #017f8a;
-}
-
-.secondary-btn {
-  background-color: #333;
-}
-
-.secondary-btn:hover {
-  background-color: #444;
+.hero-btn:hover {
+  background-color: var(--hero-button-hover-bg);
+  transform: scale(1.1);
 }
 
 .hero-image {
-  max-width: 40%;
+  max-width: 45%;
   border-radius: 10px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
@@ -68,77 +64,66 @@
 .features {
   padding: 4rem 2rem;
   text-align: center;
-  background-color: #f4f4f4;
+  background-color: var(--feature-bg);
 }
 
 .features h2 {
   margin-bottom: 2rem;
-  font-size: 2rem;
+  font-size: 2.5rem;
+  color: var(--text-color);
 }
 
 .features-content {
   display: flex;
-  flex-direction: column;
   gap: 2rem;
-  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .feature-item {
-  background-color: #fff;
-  padding: 1.5rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  max-width: 600px;
-  text-align: center;
+  background-color: var(--feature-card-bg);
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  max-width: 300px;
+}
+
+.feature-item:hover {
+  transform: scale(1.05);
+}
+
+.feature-item img {
+  width: 100px;
+  margin: 0 auto 1rem;
 }
 
 .feature-item h3 {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   margin-bottom: 0.5rem;
-}
-
-.features-image {
-  margin-top: 3rem;
-  max-width: 80%;
-  border-radius: 10px;
+  color: var(--feature-highlight-color);
 }
 
 /* CTA Section */
 .cta {
   padding: 4rem 2rem;
   text-align: center;
-  background: linear-gradient(to right, #019aa8, #00bcd4);
-  color: #fff;
-}
-
-.cta h2 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
+  background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+  color: var(--hero-text-color);
+  border-radius: 10px;
 }
 
 .cta-btn {
-  padding: 0.8rem 2rem;
-  background-color: #fff;
-  color: #019aa8;
+  padding: 1rem 2rem;
+  background-color: var(--hero-button-bg);
+  color: var(--button-text-color);
   font-weight: bold;
   text-decoration: none;
-  border-radius: 5px;
+  border-radius: 20px;
+  transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .cta-btn:hover {
-  background-color: #e0f7fa;
+  background-color: var(--hero-button-hover-bg);
+  transform: scale(1.1);
 }
-
-/* Smooth transitions for all elements */
-[data-aos] {
-  opacity: 0;
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-[data-aos].aos-animate {
-  opacity: 1;
-  transform: translate(0, 0);
-}
-
-
-

@@ -4,32 +4,54 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background-color: var(--navbar-bg-color, #333);
-  color: white;
+  background-color: var(--navbar-bg-color);
+  color: var(--navbar-text-color);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
-.navbar a {
-  color: white;
+.navbar-brand a {
+  font-size: 1.5rem;
+  font-weight: bold;
   text-decoration: none;
-  margin: 0 1rem;
+  color: var(--navbar-text-color);
+  transition: color 0.3s ease;
 }
 
-.navbar ul {
+.navbar-brand a:hover {
+  color: var(--navbar-highlight-color);
+}
+
+/* Nav Links */
+.navbar-links {
   display: flex;
+  align-items: center;
   list-style: none;
   margin: 0;
   padding: 0;
+  gap: 1.5rem;
 }
 
-.navbar li {
-  margin: 0 0.5rem;
+.navbar-links li {
+  margin: 0 1rem;
 }
 
-.navbar .navbar-brand a {
-  font-size: 1.5rem;
+.navbar-links a {
+  color: var(--navbar-text-color);
+  text-decoration: none;
   font-weight: bold;
+  transition: color 0.3s ease, transform 0.3s ease;
 }
 
+.navbar-links a:hover {
+  color: var(--navbar-highlight-color);
+  transform: scale(1.1);
+}
+
+/* Profile Menu */
 .profile-menu {
   position: relative;
   cursor: pointer;
@@ -40,93 +62,99 @@
   height: 40px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid white;
+  border: 2px solid var(--navbar-highlight-color);
+  transition: transform 0.3s ease;
 }
 
+.profile-photo:hover {
+  transform: scale(1.1);
+}
+
+/* Dropdown Menu */
 .profile-dropdown {
   position: absolute;
   top: 50px;
   right: 0;
-  background-color: white;
-  color: black;
+  background-color: var(--card-background-color);
+  color: var(--text-color);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   padding: 1rem;
-  width: 170px;
-  height: 300px;
+  width: 175px;
   z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .profile-dropdown .dropdown-group {
-  margin-bottom: 1rem;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
+  margin-bottom: 1rem;
 }
 
 .profile-dropdown .dropdown-group a,
 .profile-dropdown .dropdown-item {
-  display: block;
   padding: 0.5rem 0;
-  color: black;
+  color: var(--text-color);
   text-decoration: none;
-  cursor: pointer;
+  font-weight: 500;
+  transition: color 0.3s ease;
 }
 
 .profile-dropdown .dropdown-group a:hover,
 .profile-dropdown .dropdown-item:hover {
-  color: var(--primary-color, #00bcd4);
-}
-
-hr {
-  margin: 0.5rem 0;
-  border: none;
-  border-top: 1px solid #ddd;
-}
-
-.dropdown-item.logout {
-  color: red; 
-}
-
-.dropdown-item.logout:hover{
-  color: red;
+  color: var(--navbar-highlight-color);
 }
 
 /* Submenu Styling */
 .settings {
   position: relative;
+  cursor: pointer;
 }
 
 .submenu {
   position: absolute;
-  top: 0; 
-  left: -260px; /* Adjust submenu position relative to parent */
-  background-color: white;
-  color: black;
-  padding: 0.5rem;
-  border-radius: 5px;
+  top: 0;
+  left: -240px; /* Adjusted to align perfectly to the left */
+  background-color: var(--card-background-color);
+  color: var(--text-color);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  padding: 0.5rem 0;
+  min-width: 180px;
   z-index: 1000;
-  min-width: 200px; 
   display: flex;
   flex-direction: column;
-  align-items: center;
+  transition: all 0.3s ease;
 }
-
 
 .submenu-item {
   display: flex;
   align-items: center;
-  padding: 0.5rem;
+  padding: 0.5rem 1rem;
   cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .submenu-item:hover {
-  color: #00bcd4;  
- }
-
-
+  background-color: var(--navbar-highlight-color);
+  color: var(--button-text-color);
+}
 
 .submenu-item svg {
   margin-right: 0.5rem;
+}
+
+/* Logout Button */
+.profile-dropdown .dropdown-item.logout {
+  color: red;
+  font-weight: bold;
+}
+
+.profile-dropdown .dropdown-item.logout:hover {
+  color: darkred;
 }

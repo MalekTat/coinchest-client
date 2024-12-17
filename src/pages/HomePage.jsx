@@ -3,9 +3,12 @@ import { Link } from 'react-router-dom';
 import AOS from 'aos';
 import 'aos/dist/aos.css'
 import '../styles/HomePage.css';
-import realtime from '../assets/realtime.jpg';
-import singlePersonDashboard from '../assets/single-person-dashboard.png';
-import teamDashboard from '../assets/team-dashboard.png';
+
+import heroImage from '../assets/hero.png';
+import realtimeImage from '../assets/realtime.png';
+import portfolioImage from '../assets/portfolio.png';
+import alertsImage from '../assets/alerts.png';
+
 
 const HomePage = () => {
 
@@ -29,7 +32,7 @@ const HomePage = () => {
       {/* Hero Section */}
       <section className="hero">
         <div className="hero-content" data-aos="fade-right">
-          <h1>Welcome to Crypto Dashboard</h1>
+          <h1>Welcome to Coin Chest</h1>
           <p>
             Track cryptocurrency prices, manage your portfolio, and stay ahead of market trends—all in one place.
           </p>
@@ -38,37 +41,29 @@ const HomePage = () => {
             <Link to="/service" className="hero-btn secondary-btn">Learn More</Link>
           </div>
         </div>
-        <img
-          src={singlePersonDashboard}
-          alt="Crypto Dashboard Interaction"
-          className="hero-image"
-          data-aos="fade-left"
-        />
+        <img src={heroImage} alt="Crypto Dashboard Interaction" className="hero-image" data-aos="fade-left" />
       </section>
 
       {/* Features Section */}
       <section className="features" data-aos="fade-up">
         <h2>Why Choose Crypto Dashboard?</h2>
         <div className="features-content">
-          <div className="feature-item" data-aos="fade-right">
+          <div className="feature-item cartoon-card" data-aos="fade-right">
+            <img src={realtimeImage} alt="Real-Time Data" className="feature-image" />
             <h3>Real-Time Data</h3>
             <p>Access the latest cryptocurrency prices and market trends at your fingertips.</p>
           </div>
-          <div className="feature-item" data-aos="fade-left">
-            <h3>Portfolio Management</h3>
-            <p>Track your investments and monitor your performance with ease.</p>
+          <div className="feature-item cartoon-card" data-aos="fade-left">
+            <img src={portfolioImage} alt="Portfolio Management" className="feature-image" />
+            <h3>Portfolio Manage</h3>
+            <p>Track your investments and monitor your performance effortlessly.</p>
           </div>
-          <div className="feature-item" data-aos="fade-right">
+          <div className="feature-item cartoon-card" data-aos="fade-right">
+            <img src={alertsImage} alt="Custom Alerts" className="feature-image" />
             <h3>Custom Alerts</h3>
-            <p>Set personalized price alerts and stay informed about market movements.</p>
+            <p>Stay informed with price alerts designed to keep you ahead.</p>
           </div>
         </div>
-        <img
-          src={teamDashboard}
-          alt="Crypto Dashboard Features"
-          className="features-image"
-          data-aos="zoom-in"
-        />
       </section>
 
       {/* Call-to-Action Section */}
