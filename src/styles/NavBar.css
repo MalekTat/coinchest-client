@@ -81,6 +81,7 @@
   border-radius: 8px;
   padding: 1rem;
   width: 175px;
+  
   z-index: 1000;
   display: flex;
   flex-direction: column;
@@ -103,6 +104,14 @@
   text-decoration: none;
   font-weight: 500;
   transition: color 0.3s ease;
+}
+
+.profile-dropdown hr {
+  border: none; 
+  height: 1px; 
+  background-color: var(--text-color, #00bcd4);
+  margin-bottom: 0.5rem; 
+  width: 100%;
 }
 
 .profile-dropdown .dropdown-group a:hover,
@@ -150,6 +159,11 @@
 }
 
 /* Logout Button */
+
+.profile-dropdown .dropdown-group:last-child{
+  margin-bottom: 0;
+}
+
 .profile-dropdown .dropdown-item.logout {
   color: red;
   font-weight: bold;

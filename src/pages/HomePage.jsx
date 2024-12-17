@@ -38,7 +38,7 @@ const HomePage = () => {
           </p>
           <div className="hero-buttons">
             <Link to="/signup" className="hero-btn primary-btn">Get Started</Link>
-            <Link to="/service" className="hero-btn secondary-btn">Learn More</Link>
+            <Link to="/services" className="hero-btn secondary-btn">Learn More</Link>
           </div>
         </div>
         <img src={heroImage} alt="Crypto Dashboard Interaction" className="hero-image" data-aos="fade-left" />

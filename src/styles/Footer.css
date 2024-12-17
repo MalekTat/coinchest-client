@@ -1,9 +1,24 @@
-.footer {
-    background-color: #222;
-    color: #fff;
+  .footer {
+    background-color: var(--footer-bg-color);
+    color: var(--footer-text-color);
+    font-weight: 600;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
     text-align: center;
-    padding: 1rem 0;
+    justify-content: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
     height: var(--footer-height);
+  }
+  
+  .footer a {
+    color: var(--footer-link-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .footer a:hover {
+    color: var(--primary-color);
   }
   
  

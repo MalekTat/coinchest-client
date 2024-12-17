@@ -11,10 +11,12 @@ import DashboardPage from './pages/DashboardPage';
 import PortfolioPage from './pages/PortfolioPage';
 import AlertsPage from './pages/AlertsPage';
 import ProfileEditPage from './pages/ProfileEditPage';
+import ServicesPage from './pages/ServicesPage';
+import ContactPage from './pages/ContactPage';
 
 const App = () => {
   const location = useLocation();
-  const noFooterPaths = ['/portfolio' , '/profile', '/dashboard'];
+  const noFooterPaths = ['/login"','/signup','/portfolio' , '/profile', '/dashboard','/services','/contact'];
 
   return (
     <AuthProvider>
@@ -23,6 +25,8 @@ const App = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/services" element={<ServicesPage />} />
+        <Route path="/contact" element={<ContactPage />} />
         <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
         <Route path="/portfolio" element={<ProtectedRoute><PortfolioPage /></ProtectedRoute>} />
         <Route path="/alerts" element={<ProtectedRoute><AlertsPage /></ProtectedRoute>} />

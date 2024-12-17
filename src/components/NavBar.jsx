@@ -50,7 +50,7 @@ const NavBar = () => {
       </div>
       <ul className="navbar-links">
         <li><Link to="/"><FontAwesomeIcon icon={faHouse} /></Link></li>
-        <li><Link to="/service">Service</Link></li>
+        <li><Link to="/services">Service</Link></li>
         <li><Link to="/contact">Contact</Link></li>
         {!user ? (
           <li><Link to="/login">Login</Link></li>
