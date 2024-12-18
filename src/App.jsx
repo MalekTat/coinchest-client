@@ -16,7 +16,7 @@ import ContactPage from './pages/ContactPage';
 
 const App = () => {
   const location = useLocation();
-  const noFooterPaths = ['/login"','/signup','/portfolio' , '/profile', '/dashboard','/services','/contact'];
+  const noFooterPaths = ['/login','/signup','/portfolio' , '/profile', '/dashboard','/services','/contact'];
 
   return (
     <AuthProvider>

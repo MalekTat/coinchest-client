@@ -49,9 +49,10 @@ video {
 
 /* Light/Dark Mode Support */
 :root {
+  --primary-color: #00bcd4;
   --background-color: #f9f9f9;
   --text-color: #333;
-  --hero-primary-color: #00bcd4;;
+  --hero-primary-color: #00bcd4;
   --hero-secondary-color:#ddfaff;
   --hero-text-color: #fff;
   --hero-button-bg: #00bcd4;
@@ -69,6 +70,12 @@ video {
   --footer-bg-color: #00bcd4;
   --footer-text-color: #333;
   --footer-link-color: #00bcd4;
+
+  --login-bg-color: #f9f9f9;
+
+  --chart-bg-color:#ffffff;
+  --marketcard-bg-color:#ffffff;
+  --popup-bg-color: #f0f0ef;
    
 }
 
@@ -92,4 +99,10 @@ body.dark {
   --footer-bg-color: #333;
   --footer-text-color: #e0e0e0;
   --footer-link-color: #00bcd4;
+
+  --login-bg-color:#555;
+
+  --chart-bg-color:#939090;
+  --marketcard-bg-color:#c3c1c1;
+  --popup-bg-color: #333;
 }

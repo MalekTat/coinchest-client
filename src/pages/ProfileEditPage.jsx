@@ -65,74 +65,76 @@ const ProfileEditPage = () => {
   };
 
   return (
-    <div className="edit-profile-container">
-      <h2>Edit Profile</h2>
-      {showPopup && <Popup message={message} onClose={() => setShowPopup(false)} />}
-      {showConfirmation && (
-        <ConfirmationModal
-          message="Are you sure you want to delete your account? This action cannot be undone."
-          onConfirm={() => {
-            setShowConfirmation(false);
-            handleDeleteAccount();
-          }}
-          onCancel={() => setShowConfirmation(false)}
-        />
-      )}
-      <div className="profile-photo-container">
-        <img
-          src={profilePhoto ? URL.createObjectURL(profilePhoto) : user?.profilePhoto || '/default-avatar.png'}
-          alt="Profile"
-          className="profile-photo-preview"
-        />
-        <button className="upload-button" onClick={() => document.getElementById('profilePhoto').click()}>
-          ...
+    <div className="edit-profile-container-wrapper">
+      <div className="edit-profile-container">
+        <h2>Edit Profile</h2>
+        {showPopup && <Popup message={message} onClose={() => setShowPopup(false)} />}
+        {showConfirmation && (
+          <ConfirmationModal
+            message="Are you sure you want to delete your account? This action cannot be undone."
+            onConfirm={() => {
+              setShowConfirmation(false);
+              handleDeleteAccount();
+            }}
+            onCancel={() => setShowConfirmation(false)}
+          />
+        )}
+        <div className="profile-photo-container">
+          <img
+            src={profilePhoto ? URL.createObjectURL(profilePhoto) : user?.profilePhoto || '/default-avatar.png'}
+            alt="Profile"
+            className="profile-photo-preview"
+          />
+          <button className="upload-button" onClick={() => document.getElementById('profilePhoto').click()}>
+            ...
+          </button>
+          <input
+            type="file"
+            id="profilePhoto"
+            onChange={handleFileChange}
+            accept="image/*"
+            hidden
+          />
+        </div>
+        <form onSubmit={handleSubmit} encType="multipart/form-data" className="edit-profile-form">
+          <div className="form-group">
+            <label htmlFor="username">Username:</label>
+            <input
+              type="text"
+              id="username"
+              placeholder="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="email">Email:</label>
+            <input
+              type="email"
+              id="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="password">New Password:</label>
+            <input
+              type="password"
+              id="password"
+              placeholder="New Password (Optional)"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          <button type="submit" className="save-button">Save Changes</button>
+        </form>
+        <button className="delete-account-button" onClick={() => setShowConfirmation(true)}>
+          Delete Account
         </button>
-        <input
-          type="file"
-          id="profilePhoto"
-          onChange={handleFileChange}
-          accept="image/*"
-          hidden
-        />
       </div>
-      <form onSubmit={handleSubmit} encType="multipart/form-data" className="edit-profile-form">
-        <div className="form-group">
-          <label htmlFor="username">Username:</label>
-          <input
-            type="text"
-            id="username"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">New Password:</label>
-          <input
-            type="password"
-            id="password"
-            placeholder="New Password (Optional)"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <button type="submit" className="save-button">Save Changes</button>
-      </form>
-      <button className="delete-account-button" onClick={() => setShowConfirmation(true)}>
-        Delete Account
-      </button>
     </div>
   );
 };

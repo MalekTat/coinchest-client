@@ -5,7 +5,11 @@
     justify-content: center;
     padding: 2rem;
     margin: 0;
-  }
+    background-color: var(--feature-card-bg);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    min-height: calc(100vh - var(--navbar-height) - 0.75rem);
+}
   
   /* Content layout: List on the left, Charts on the right */
   .portfolio-content {
@@ -20,7 +24,6 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    
     width: 60%;
   }
 
@@ -64,7 +67,7 @@
   .portfolio-list {
     flex: 1;
     min-width: 300px;
-    background: #ffffff;
+    background: var(--chart-bg-color);
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 1rem;
@@ -75,7 +78,7 @@
     display: flex;
     justify-content: space-between;
     padding: 0.5rem 1rem;
-    background-color: #f9f9f9;
+    background-color: var(--chart-bg-color);
     border-radius: 5px;
     font-weight: bold;
     padding-left: 16rem;
@@ -102,9 +105,10 @@
     border: 1px solid #ddd;
     border-radius: 8px;
     margin-bottom: 1rem;
-    background-color: #f9f9f9;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: all 0.2s ease;
+    background-color: var(--marketcard-bg-color);
+    color: var(--text-color);
   }
   
   
@@ -137,6 +141,54 @@
     font-size: 0.9rem;
     margin: 0 0.5rem;
     color: #555;
+    font-weight: bold;
+  }
+
+  .crypto-profit.positive {
+    color: green;
+    font-weight: bold;
+  }
+  
+  .crypto-profit.negative {
+    color: red;
+    font-weight: bold;
+  }
+
+  /*portfolio total*/
+
+  .portfolio-summary {
+    display: flex;
+    justify-content: space-between;
+    margin: 2rem 0;
+    padding: 1rem;
+    background-color: var(--feature-card-bg);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .total-assets,
+  .total-profit-loss {
+    text-align: center;
+    flex: 1;
+  }
+  
+  .total-assets h3,
+  .total-profit-loss h3 {
+    margin-bottom: 0.5rem;
+  }
+  
+  .total-assets p,
+  .total-profit-loss p {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .total-profit-loss p.positive {
+    color: green;
+  }
+  
+  .total-profit-loss p.negative {
+    color: red;
   }
   
   /* Portfolio Charts styling */
@@ -145,7 +197,7 @@
     min-width: 400px;
     width: 40%;
     padding: 0;
-    background: #ffffff;
+    background: var(--chart-bg-color);
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
@@ -168,31 +220,95 @@
     z-index: 1000;
     width: 90%;
     max-width: 500px;
-    background: #ffffff;
     padding: 2rem;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: var(--popup-bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
-  
+
   .modal label {
     display: block;
     margin-bottom: 0.5rem;
     font-weight: bold;
   }
-  
-  .modal select,
-  .modal input {
-    display: block;
+
+  .fisrt-line{
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    gap: 1rem;
+    
+  }
+
+  .fisrt-line label{
+    width: 60%;
+  }
+
+
+  .fisrt-line select {
     width: 100%;
+    margin-top: 0.5rem;
     margin-bottom: 1rem;
     padding: 0.75rem;
-    border: 1px solid #ddd;
+    border: 1px solid var(--text-color);
     border-radius: 5px;
     font-size: 1rem;
+    text-align: center;
+  }
+
+
+  .crypto-preview {
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .crypto-preview img {
+    width: 30px;
+    height: 30px;
+    margin-right: 0.5rem;
+    border-radius: 50%;
+  }
+  
+  .crypto-preview span {
+    font-size: 1rem;
+    font-weight: bold;
+  }
+  
+  
+  .second-line {
+    display: flex;
+    gap:1rem;
+  }
+
+  
+  .second-line  input {
+    display: block;
+    width: 100%;
+    margin-top: 0.5rem;
+    margin-bottom: 3rem;
+    padding: 0.75rem;
+    border: 1px solid var(--text-color);
+    border-radius: 5px;
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
   }
   
   .modal button {
-    width: 48%;
+    width: 30%;
+    margin-left: 10%;
+    margin-right: 10%;
     padding: 0.75rem;
     font-size: 1rem;
     font-weight: bold;
@@ -220,57 +336,6 @@
     background-color: #d32f2f;
   }
   
-  .modal .crypto-preview {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1rem;
-  }
   
-  .modal .crypto-preview img {
-    width: 30px;
-    height: 30px;
-    margin-right: 0.5rem;
-    border-radius: 50%;
-  }
   
-  .modal .crypto-preview span {
-    font-size: 1rem;
-    font-weight: bold;
-  }
-  
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .portfolio-content {
-      flex-direction: column;
-    }
-  
-    .portfolio-list,
-    .portfolio-charts {
-      max-width: 100%;
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .portfolio-actions button {
-      font-size: 0.9rem;
-      padding: 0.5rem 1rem;
-    }
-  
-    .modal {
-      padding: 1rem;
-    }
-  
-    .modal label {
-      font-size: 0.9rem;
-    }
-  
-    .modal select,
-    .modal input {
-      font-size: 0.9rem;
-    }
-  
-    .modal button {
-      font-size: 0.9rem;
-    }
-  }
   

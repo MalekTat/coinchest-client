@@ -52,8 +52,11 @@ const PortfolioPage = () => {
 
   const fetchCurrentPrice = async (cryptoId) => {
     try {
+      console.log(cryptoId)
       const response = await axios.get(`${SERVER_BaseURL}/api/crypto/${cryptoId}`);
-      setCurrentPrice(response.data.market_data.current_price.usd);
+      const price = response.data.market_data.current_price.usd;
+      setCurrentPrice(price);
+      console.log(currentPrice)
     } catch (err) {
       console.error('Error fetching current price:', err.message);
     }
@@ -64,11 +67,11 @@ const PortfolioPage = () => {
   const prepareCharts = (data) => {
     const pieData = data.map((item) => ({
       name: item.cryptoId,
-      value: item.totalValue,
+      value: currency === 'USD' ? item.totalValueUSD : item.totalValueEUR,
     }));
     const barData = data.map((item) => ({
       name: item.cryptoId,
-      profit: item.profitLoss,
+      profit: currency === 'USD' ? item.profitLossUSD : item.profitLossEUR,
     }));
     setChartData(pieData);
     setProfitLossData(barData);
@@ -89,6 +92,7 @@ const PortfolioPage = () => {
     e.preventDefault();
     try {
       const url = isBuying ? `${SERVER_BaseURL}/api/portfolio/buy` : `${SERVER_BaseURL}/api/portfolio/sell`;
+      console.log(formData)
       await axios.post(url, formData, {
         headers: { authorization: `Bearer ${localStorage.getItem('token')}` },
       });
@@ -99,6 +103,16 @@ const PortfolioPage = () => {
     } catch (err) {
       console.error('Error saving portfolio item:', err.message);
     }
+  };
+
+
+  const totalAssets = portfolio.reduce((sum, item) => sum + item.totalValue, 0);
+  const totalProfitLoss = portfolio.reduce((sum, item) => sum + item.profitLoss, 0);
+
+    // Currency formatter
+  const formatCurrency = (value) => {
+      const symbol = currency === 'USD' ? '$' : '€';
+      return `${symbol} ${value.toLocaleString()}`;
   };
 
   return (
@@ -124,11 +138,31 @@ const PortfolioPage = () => {
                   <img src={item.image} alt={item.name} className="crypto-image" />
                   <span className="crypto-name">{item.name}</span>
                   <span className="crypto-amount">{item.amount}</span>
-                  <span className="crypto-value">{item.totalValue}</span>
-                  <span className="crypto-profit">{item.profitLoss}</span>
+                  <span className="crypto-value">
+                     {formatCurrency(item.totalValue)}
+                  </span>
+                  <span
+                    className={`crypto-profit ${
+                      item.profitLoss >= 0 ? 'positive' : 'negative'
+                    }`}
+                  >
+                     {formatCurrency(item.profitLoss)}
+                  </span>
                 </li>
               ))}
             </ul>
+            <div className="portfolio-summary">
+              <div className="total-assets">
+                <h3>Total Assets</h3>
+                <p>{formatCurrency(totalAssets)}</p>
+              </div>
+              <div className="total-profit-loss">
+                <h3>Total Profit/Loss</h3>
+                <p className={totalProfitLoss >= 0 ? 'positive' : 'negative'}>
+                  {formatCurrency(totalProfitLoss)}
+                </p>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -136,12 +170,21 @@ const PortfolioPage = () => {
         <div className="portfolio-charts">
           <ResponsiveContainer width="100%" height={300}>
             <PieChart>
-              <Pie data={chartData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={100} fill="#8884d8">
+              <Pie 
+                data={chartData} 
+                dataKey="value" 
+                nameKey="name" 
+                cx="50%" 
+                cy="50%"
+                innerRadius={45}
+                outerRadius={110}
+                fill="#00bcd4"
+                label={({ name, value }) => `${name}: ${currency === 'USD' ? '$' : '€'}${value.toLocaleString()}`}
+              >
                 {chartData.map((entry, index) => (
                   <Cell key={`cell-${index}`} fill={['#FF6384', '#36A2EB', '#FFCE56'][index % 3]} />
                 ))}
               </Pie>
-              <Tooltip />
             </PieChart>
           </ResponsiveContainer>
 
@@ -149,8 +192,8 @@ const PortfolioPage = () => {
             <BarChart data={profitLossData}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
+              <YAxis tickFormatter={(value) => `${currency === 'USD' ? '$' : '€'}${value}`} />
+              <Tooltip formatter={(value) => `${currency === 'USD' ? '$' : '€'}${value}`} />
               <Legend />
               <Bar dataKey="profit">
                 {profitLossData.map((entry, index) => (
@@ -167,23 +210,26 @@ const PortfolioPage = () => {
       {modalOpen && (
         <div className="modal">
           <form onSubmit={handleSubmit}>
-            <label>
-              Select Crypto:
-              <select name="cryptoId" value={formData.cryptoId} onChange={handleInputChange} required>
-                <option value="">Choose a Crypto</option>
-                {cryptoList.map((crypto) => (
-                  <option key={crypto.id} value={crypto.id}>
-                    {crypto.name}
-                  </option>
-                ))}
-              </select>
-            </label>
-            {selectedCrypto && (
-              <div className="crypto-preview">
-                <img src={selectedCrypto.image} alt={selectedCrypto.name} />
-                <span>{selectedCrypto.name}</span>
-              </div>
-            )}
+            <div className='fisrt-line'>
+              <label>
+                Select Crypto:
+                <select name="cryptoId" value={formData.cryptoId} onChange={handleInputChange} required>
+                  <option value="">Choose a Crypto</option>
+                  {cryptoList.map((crypto) => (
+                    <option key={crypto.id} value={crypto.id}>
+                      {crypto.name}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              {selectedCrypto && (
+                <div className="crypto-preview">
+                  <img src={selectedCrypto.image} alt={selectedCrypto.name} />
+                  <span>{selectedCrypto.name}</span>
+                </div>
+              )}
+            </div>
+            <div className='second-line'>
             <label>
               Amount:
               <input type="number" name="amount" value={formData.amount} onChange={handleInputChange} required />
@@ -192,6 +238,7 @@ const PortfolioPage = () => {
               {isBuying ? 'Purchase Price' : 'Sell Price'}:
               <input type="number" name="price" value={formData.price || (currentPrice ? currentPrice.toFixed(2) : '')} onChange={handleInputChange} required />
             </label>
+            </div>
             <button type="submit">{isBuying ? 'Buy' : 'Sell'}</button>
             <button type="button" onClick={() => setModalOpen(false)}>Cancel</button>
           </form>

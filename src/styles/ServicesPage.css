@@ -1,34 +1,55 @@
 .services-page {
-    padding: 4rem;
-    background-color: var(--background-color);
-    color: var(--text-color);
-    text-align: center;
-    transition: background-color 0.3s ease, color 0.3s ease;
-  }
-  
-  .services-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 2rem;
-  }
-  
-  .service-card {
-    background-color: var(--feature-card-bg);
-    color: var(--text-color);
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    max-width: 300px;
-    transition: transform 0.3s ease;
-  }
-  
-  .service-card:hover {
-    transform: translateY(-5px);
-  }
-  
-  .service-card h3 {
-    color: var(--feature-highlight-color);
-    margin-bottom: 1rem;
-  }
-  
+  padding: 4rem;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  text-align: center;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  height: calc(100vh - var(--navbar-height));
+}
+
+.services-page h1 {
+  margin-top: 1rem;
+  margin-bottom: 3rem;
+  font-weight: 800;
+  font-size: 30px;
+  color: var(--feature-highlight-color);
+}
+
+.services-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 7rem;
+  height : 70%;
+}
+
+.service-card {
+  background-color: var(--feature-card-bg);
+  color: var(--text-color);
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 350px;
+  transition: transform 0.3s ease;
+  height: 80%;
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+}
+
+.service-card img {
+  width: 150px;
+  margin: 0 auto 1rem;
+}
+
+.service-card h3 {
+  color: var(--feature-highlight-color);
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.service-card p{
+  font-weight: 500;
+}
