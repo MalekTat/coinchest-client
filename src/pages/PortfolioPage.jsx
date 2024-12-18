@@ -189,13 +189,13 @@ const PortfolioPage = () => {
           </ResponsiveContainer>
 
           <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={profitLossData}>
+            <BarChart data={profitLossData} barCategoryGap="20px">
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" />
               <YAxis tickFormatter={(value) => `${currency === 'USD' ? '$' : '€'}${value}`} />
-              <Tooltip formatter={(value) => `${currency === 'USD' ? '$' : '€'}${value}`} />
+              <Tooltip formatter={(value) => `${currency === 'USD' ? '$' : '€'}${value}`} cursor={false}/>
               <Legend />
-              <Bar dataKey="profit">
+              <Bar dataKey="profit" barSize={70}>
                 {profitLossData.map((entry, index) => (
                   <Cell key={`cell-${index}`} fill={entry.profit >= 0 ? '#82ca9d' : '#f44336'} />
                 ))}

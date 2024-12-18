@@ -11,6 +11,7 @@
   position: sticky;
   top: 0;
   z-index: 1000;
+  height: var(--navbar-height);
 }
 
 .navbar-brand a {
@@ -108,7 +109,7 @@
 
 .profile-dropdown hr {
   border: none; 
-  height: 1px; 
+  height: 0.9px; 
   background-color: var(--text-color, #00bcd4);
   margin-bottom: 0.5rem; 
   width: 100%;

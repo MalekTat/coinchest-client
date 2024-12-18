@@ -8,7 +8,7 @@
     background-color: var(--feature-card-bg);
     color: var(--text-color);
     transition: background-color 0.3s ease, color 0.3s ease;
-    min-height: calc(100vh - var(--navbar-height) - 0.75rem);
+    height: calc(100vh - var(--navbar-height));
 }
   
   /* Content layout: List on the left, Charts on the right */

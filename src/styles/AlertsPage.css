@@ -1,0 +1,230 @@
+/* General Styles */
+.alerts-page {
+  display: flex;
+  padding: 2rem;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  height: calc(100vh - var(--navbar-height));
+}
+
+.alerts-content {
+  display: flex;
+  width: 100%;
+  gap: 2rem;
+}
+
+/* Alerts List Container */
+.alerts-list-container {
+  flex: 0 0 65%; 
+}
+
+.alerts-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.alerts-header h1 {
+  font-size: 1.5rem;
+  color: var(--text-color);
+}
+
+.add-alert-btn {
+  padding: 0.75rem 1.5rem;
+  background-color: var(--primary-color);
+  color: var(--button-text-color);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.add-alert-btn:hover {
+  background-color: var(--primary-hover-color);
+}
+
+/* Alerts List Titles */
+.alerts-list-titles {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  padding: 1rem;
+  background-color: var(--feature-card-bg);
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.alerts-list-titles span {
+  flex: 1;
+  text-align: center;
+}
+
+/* Alerts List */
+.alerts-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.alert-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  background-color: var(--feature-card-bg);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.alert-item span {
+  flex: 1;
+  text-align: center;
+}
+
+/* Crypto Name */
+.crypto-name {
+  font-weight: bold;
+}
+
+/* Target Price */
+.alert-target-price {
+  font-size: 1rem;
+}
+
+/* Condition Arrows */
+.alert-condition {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.alert-condition.up {
+  color: green;
+}
+
+.alert-condition.down {
+  color: red;
+}
+
+/* Triggered Status */
+.alert-triggered {
+  font-weight: bold;
+}
+
+.alert-triggered.triggered {
+  color: green;
+}
+
+.alert-triggered.not-triggered {
+  color: gray;
+}
+
+/* Actions */
+.alert-actions {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.alert-actions button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: var(--primary-color);
+  color: var(--button-text-color);
+  transition: background-color 0.3s ease;
+}
+
+.alert-actions button:hover {
+  background-color: var(--primary-hover-color);
+}
+
+.alert-actions button.delete {
+  background-color: #f44336;
+}
+
+.alert-actions button.delete:hover {
+  background-color: #d32f2f;
+}
+
+/* Right Section */
+.alerts-right {
+  flex: 1; /* Takes the remaining width */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.alerts-bell-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  background-color: var(--feature-card-bg);
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 400px;
+}
+
+.modal form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.modal label {
+  font-weight: bold;
+}
+
+.modal select,
+.modal input {
+  padding: 0.75rem;
+  border: 1px solid var(--text-color);
+  border-radius: 5px;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-size: 1rem;
+}
+
+.modal button {
+  padding: 0.75rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.modal button[type='submit'] {
+  background-color: var(--primary-color);
+  color: var(--button-text-color);
+}
+
+.modal button[type='submit']:hover {
+  background-color: var(--primary-hover-color);
+}
+
+.modal button[type='button'] {
+  background-color: #f44336;
+  color: white;
+}
+
+.modal button[type='button']:hover {
+  background-color: #d32f2f;
+}

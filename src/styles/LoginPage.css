@@ -3,7 +3,7 @@
     justify-content: center;
     align-items: center;
     padding: 2rem;
-    height: calc(100vh - var(--navbar-height) - 0.75rem);
+    height: calc(100vh - var(--navbar-height));
     background-color: var(--login-bg-color);
   }
   .login-container {
