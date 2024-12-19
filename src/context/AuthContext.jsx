@@ -20,6 +20,8 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+
+    window.location.href = "/";
   };
 
   const toggleTheme = () => setTheme((prev) => (prev === "light" ? "dark" : "light"));

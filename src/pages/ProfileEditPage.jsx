@@ -57,7 +57,6 @@ const ProfileEditPage = () => {
         },
       });
       logout(); 
-      navigate('/'); 
     } catch (err) {
       setMessage(err.response?.data?.message || 'An error occurred.');
       setShowPopup(true);
