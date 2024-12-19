@@ -3,7 +3,7 @@ import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
 import { SERVER_BaseURL } from '../config';
 import '../styles/AlertsPage.css';
-import bellImage from '../assets/bell.png'; 
+import bellImage from '../assets/bell.png';
 
 const AlertsPage = () => {
   const { currency } = useContext(AuthContext);
@@ -13,11 +13,11 @@ const AlertsPage = () => {
     cryptoId: '',
     condition: 'above',
     targetPrice: '',
-    isTriggered: false,
   });
   const [modalOpen, setModalOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editingAlertId, setEditingAlertId] = useState(null);
+  const [selectedCrypto, setSelectedCrypto] = useState(null);
 
   useEffect(() => {
     fetchCryptoList();
@@ -47,6 +47,11 @@ const AlertsPage = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+
+    if (name === 'cryptoId') {
+      const selected = cryptoList.find((crypto) => crypto.id === value);
+      setSelectedCrypto(selected);
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -65,20 +70,10 @@ const AlertsPage = () => {
       setModalOpen(false);
       setIsEditing(false);
       setEditingAlertId(null);
+      setSelectedCrypto(null);
       setFormData({ cryptoId: '', condition: 'above', targetPrice: '' });
     } catch (err) {
       console.error('Error saving alert:', err.message);
-    }
-  };
-
-  const handleDelete = async (id) => {
-    try {
-      await axios.delete(`${SERVER_BaseURL}/api/alert/${id}`, {
-        headers: { authorization: `Bearer ${localStorage.getItem('token')}` },
-      });
-      fetchAlerts();
-    } catch (err) {
-      console.error('Error deleting alert:', err.message);
     }
   };
 
@@ -90,7 +85,20 @@ const AlertsPage = () => {
       condition: alert.condition,
       targetPrice: alert.targetPrice,
     });
+    const selected = cryptoList.find((crypto) => crypto.id === alert.cryptoId);
+    setSelectedCrypto(selected);
     setModalOpen(true);
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`${SERVER_BaseURL}/api/alert/${id}`, {
+        headers: { authorization: `Bearer ${localStorage.getItem('token')}` },
+      });
+      fetchAlerts();
+    } catch (err) {
+      console.error('Error deleting alert:', err.message);
+    }
   };
 
   const formatCurrency = (value) => {
@@ -110,9 +118,10 @@ const AlertsPage = () => {
                 setModalOpen(true);
                 setIsEditing(false);
                 setFormData({ cryptoId: '', condition: 'above', targetPrice: '' });
+                setSelectedCrypto(null);
               }}
             >
-              Add New Alert
+              Add
             </button>
           </div>
           <div className="alerts-list-titles">
@@ -125,17 +134,26 @@ const AlertsPage = () => {
           <ul className="alerts-list">
             {alerts.map((alert) => (
               <li key={alert._id} className="alert-item">
-                <span className="crypto-name">{alert.cryptoId}</span>
+                <div className="crypto-info">
+                  <img
+                    src={cryptoList.find((crypto) => crypto.id === alert.cryptoId)?.image || ''}
+                    alt={alert.cryptoId}
+                    className="crypto-image"
+                  />
+                  <span className="crypto-name">{alert.cryptoId}</span>
+                </div>
                 <span className="alert-target-price">{formatCurrency(alert.targetPrice)}</span>
                 <span className={`alert-condition ${alert.condition === 'above' ? 'up' : 'down'}`}>
                   {alert.condition === 'above' ? '▲' : '▼'}
                 </span>
-                <span className={`alert-triggered ${alert.isTriggered ? 'triggered' : 'not-triggered'}`}>
-                  {alert.isTriggered ? 'Triggered' : 'Not Triggered'}
+                <span
+                  className={`alert-triggered ${alert.isTriggered ? 'triggered' : 'not-triggered'}`}
+                >
+                  {alert.isTriggered ? 'Yes' : 'Not Yet'}
                 </span>
                 <div className="alert-actions">
                   <button onClick={() => handleEdit(alert)}>Edit</button>
-                  <button onClick={() => handleDelete(alert._id)}>Delete</button>
+                  <button className={'delete'} onClick={() => handleDelete(alert._id)}>Delete</button>
                 </div>
               </li>
             ))}
@@ -147,49 +165,61 @@ const AlertsPage = () => {
       </div>
 
       {modalOpen && (
-        <div className="modal">
+        <div className="alert-modal">
           <form onSubmit={handleSubmit}>
-            <label>
-              Select Cryptocurrency:
-              <select
-                name="cryptoId"
-                value={formData.cryptoId}
-                onChange={handleInputChange}
-                required
-              >
-                <option value="">Select Crypto</option>
-                {cryptoList.map((crypto) => (
-                  <option key={crypto.id} value={crypto.id}>
-                    {crypto.name}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <label>
-              Condition:
-              <select
-                name="condition"
-                value={formData.condition}
-                onChange={handleInputChange}
-              >
-                <option value="above">Above</option>
-                <option value="below">Below</option>
-              </select>
-            </label>
-            <label>
-              Target Price:
-              <input
-                type="number"
-                name="targetPrice"
-                value={formData.targetPrice}
-                onChange={handleInputChange}
-                required
-              />
-            </label>
-            <button type="submit">{isEditing ? 'Save Changes' : 'Add Alert'}</button>
-            <button type="button" onClick={() => setModalOpen(false)}>
-              Cancel
-            </button>
+            <div className="fisrt">
+              <label>
+                Select Crypto:
+                <select
+                  name="cryptoId"
+                  value={formData.cryptoId}
+                  onChange={handleInputChange}
+                  required
+                >
+                  <option value="">Choose a Crypto</option>
+                  {cryptoList.map((crypto) => (
+                    <option key={crypto.id} value={crypto.id}>
+                      {crypto.name}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              {selectedCrypto && (
+                <div className="crypto-preview">
+                  <img src={selectedCrypto.image} alt={selectedCrypto.name} />
+                  <span>{selectedCrypto.name}</span>
+                </div>
+              )}
+            </div>
+            <div className="second">
+              <label className='alert-condition'>
+                Condition:
+                <select
+                  name="condition"
+                  value={formData.condition}
+                  onChange={handleInputChange}
+                >
+                  <option value="above">Above</option>
+                  <option value="below">Below</option>
+                </select>
+              </label>
+              <label>
+                Target Price:
+                <input
+                  type="number"
+                  name="targetPrice"
+                  value={formData.targetPrice}
+                  onChange={handleInputChange}
+                  required
+                />
+              </label>
+            </div>
+            <div className='third'>
+              <button type="submit">{isEditing ? 'Save' : 'Add'}</button>
+              <button type="button" onClick={() => setModalOpen(false)}>
+                Cancel
+              </button>
+            </div>
           </form>
         </div>
       )}

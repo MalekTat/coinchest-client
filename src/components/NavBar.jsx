@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHouse, faMoon, faSun, faDollarSign, faEuroSign } from "@fortawesome/free-solid-svg-icons";
+import { faHouse, faRightToBracket, faMoon, faSun, faDollarSign, faEuroSign } from "@fortawesome/free-solid-svg-icons";
 import { AuthContext } from "../context/AuthContext";
 import '../styles/NavBar.css';
 
@@ -53,7 +53,7 @@ const NavBar = () => {
         <li><Link to="/services">Service</Link></li>
         <li><Link to="/contact">Contact</Link></li>
         {!user ? (
-          <li><Link to="/login">Login</Link></li>
+          <li><Link to="/login"><FontAwesomeIcon icon={faRightToBracket} size="xl" /></Link></li>
         ) : (
           <div className="profile-menu" ref={menuRef}>
             <img

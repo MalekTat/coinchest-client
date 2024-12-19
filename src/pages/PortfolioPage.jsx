@@ -239,8 +239,10 @@ const PortfolioPage = () => {
               <input type="number" name="price" value={formData.price || (currentPrice ? currentPrice.toFixed(2) : '')} onChange={handleInputChange} required />
             </label>
             </div>
-            <button type="submit">{isBuying ? 'Buy' : 'Sell'}</button>
-            <button type="button" onClick={() => setModalOpen(false)}>Cancel</button>
+            <div className='third-line'>
+              <button className="BuySell" type="submit">{isBuying ? 'Buy' : 'Sell'}</button>
+              <button type="button" onClick={() => setModalOpen(false)}>Cancel</button>
+            </div>
           </form>
         </div>
       )}

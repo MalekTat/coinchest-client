@@ -2,10 +2,10 @@
 .alerts-page {
   display: flex;
   padding: 2rem;
-  background-color: var(--background-color);
+  background-color: var(--feature-card-bg);
   color: var(--text-color);
   transition: background-color 0.3s ease, color 0.3s ease;
-  height: calc(100vh - var(--navbar-height));
+  min-height: calc(100vh - var(--navbar-height));
 }
 
 .alerts-content {
@@ -23,12 +23,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin: 0 3rem 1rem 1rem;
   margin-bottom: 1rem;
 }
 
 .alerts-header h1 {
   font-size: 1.5rem;
   color: var(--text-color);
+  font-weight: 700;
 }
 
 .add-alert-btn {
@@ -40,10 +42,11 @@
   cursor: pointer;
   font-size: 1rem;
   transition: background-color 0.3s ease;
+
 }
 
 .add-alert-btn:hover {
-  background-color: var(--primary-hover-color);
+  background-color: #009bb5;
 }
 
 /* Alerts List Titles */
@@ -52,7 +55,8 @@
   justify-content: space-between;
   font-weight: bold;
   padding: 1rem;
-  background-color: var(--feature-card-bg);
+  padding-left: 3rem;
+  background-color: var(--chart-bg-color);
   border-radius: 8px;
   margin-bottom: 1rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -70,16 +74,33 @@
   margin: 0;
 }
 
+/* Crypto Info Styling */
+
+
 .alert-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
   margin-bottom: 0.5rem;
-  background-color: var(--feature-card-bg);
+  background-color: var(--chart-bg-color);
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
+.crypto-info {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.crypto-image {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
 
 .alert-item span {
   flex: 1;
@@ -125,8 +146,11 @@
 
 /* Actions */
 .alert-actions {
+  flex: 0.9;
   display: flex;
   justify-content: center;
+  text-align: center;
+  align-items: center;
   gap: 0.5rem;
 }
 
@@ -138,13 +162,17 @@
   background-color: var(--primary-color);
   color: var(--button-text-color);
   transition: background-color 0.3s ease;
+  width: 45%;
 }
 
 .alert-actions button:hover {
-  background-color: var(--primary-hover-color);
+  background-color: #009bb5;
 }
 
 .alert-actions button.delete {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: #f44336;
 }
 
@@ -167,64 +195,138 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Modal */
-.modal {
+
+/* Modal styling */
+.alert-modal {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 1000;
-  background-color: var(--feature-card-bg);
+  width: 90%;
+  max-width: 500px;
   padding: 2rem;
   border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  width: 90%;
-  max-width: 400px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: var(--popup-bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.modal form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.modal label {
+.alert-modal label {
+  display: block;
+  margin-bottom: 0.5rem;
   font-weight: bold;
 }
 
-.modal select,
-.modal input {
+.fisrt{
+  display: flex;
+  justify-content:space-between;
+  align-items: center;
+  gap: 1rem;
+  
+}
+
+.fisrt label{
+  width: 60%;
+}
+
+
+.fisrt select {
+  width: 100%;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
   padding: 0.75rem;
   border: 1px solid var(--text-color);
   border-radius: 5px;
-  background-color: var(--background-color);
-  color: var(--text-color);
   font-size: 1rem;
+  text-align: center;
 }
 
-.modal button {
+
+.crypto-preview {
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 2rem;
+  margin-bottom: 1rem;
+}
+
+.crypto-preview img {
+  width: 30px;
+  height: 30px;
+  margin-right: 0.5rem;
+  border-radius: 50%;
+}
+
+.crypto-preview span {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+
+.second {
+  display: flex;
+  gap:1rem;
+  justify-content: space-around;
+}
+
+
+.second  input, .second select {
+
+  display: block;
+  width: 100%;
+  margin-top: 0.5rem;
+  margin-bottom: 3rem;
   padding: 0.75rem;
+  border: 1px solid var(--text-color);
+  border-radius: 5px;
+  font-size: 1rem;
+  text-align: center;
+}
+
+
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
+
+
+.third {
+  display: flex;
+  gap:1rem;
+}
+
+.alert-modal button {
+  width: 30%;
+  margin-left: 10%;
+  margin-right: 10%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  font-weight: bold;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.3s ease;
+  transition: all 0.2s ease;
 }
 
-.modal button[type='submit'] {
-  background-color: var(--primary-color);
-  color: var(--button-text-color);
+.alert-modal button[type='submit'] {
+  background-color: #00bcd4;
+  color: white;
 }
 
-.modal button[type='submit']:hover {
-  background-color: var(--primary-hover-color);
+.alert-modal button[type='submit']:hover {
+  background-color: #019aa8;
 }
 
-.modal button[type='button'] {
+.alert-modal button[type='button'] {
   background-color: #f44336;
   color: white;
 }
 
-.modal button[type='button']:hover {
+.alert-modal button[type='button']:hover {
   background-color: #d32f2f;
 }
