@@ -1,8 +1,8 @@
 import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import Popup from '../components/Popup'; // Import Popup component
-import { AuthContext } from '../context/AuthContext'; // Use context for authentication state
+import Popup from '../components/Popup'; 
+import { AuthContext } from '../context/AuthContext'; 
 import '../styles/LoginPage.css';
 import { SERVER_BaseURL } from '../config';
 
@@ -11,7 +11,7 @@ const LoginPage = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [showPopup, setShowPopup] = useState(false);
-  const { login } = useContext(AuthContext); // Get login function from context
+  const { login } = useContext(AuthContext); 
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {

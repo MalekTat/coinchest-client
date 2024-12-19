@@ -28,8 +28,8 @@ const NavBar = () => {
 
   const handleLogout = () => {
     logout();
-    navigate("/"); // Redirect to home page
-    setMenuOpen(false); // Close menu on logout
+    navigate("/"); 
+    setMenuOpen(false); 
   };
 
   const handleMouseEnterSubmenu = () => {
@@ -39,8 +39,8 @@ const NavBar = () => {
 
   const handleMouseLeaveSubmenu = () => {
     submenuTimeout.current = setTimeout(() => {
-      setSubmenuOpen(false); // Close submenu after delay
-    }, 200); // Adjust delay as needed
+      setSubmenuOpen(false); 
+    }, 200); 
   };
 
   return (

@@ -182,7 +182,7 @@
 
 /* Right Section */
 .alerts-right {
-  flex: 1; /* Takes the remaining width */
+  flex: 1; 
   display: flex;
   justify-content: center;
   align-items: center;

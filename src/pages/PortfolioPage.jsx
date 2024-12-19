@@ -120,7 +120,6 @@ const PortfolioPage = () => {
       <div className="portfolio-content">
         {/* Portfolio List */}
         <div className="portfolio-list-container">
-          {/* Buy/Sell Buttons */}
           <div className="portfolio-actions">
             <button className="buy-button" onClick={() => { setIsBuying(true); setModalOpen(true); }}>Buy</button>
             <button className="sell-button" onClick={() => { setIsBuying(false); setModalOpen(true); }}>Sell</button>

@@ -8,14 +8,14 @@ import { SERVER_BaseURL } from '../config';
 import '../styles/ProfileEditPage.css'
 
 const ProfileEditPage = () => {
-  const { user, setUser, logout } = useContext(AuthContext); // Add setUser for refreshing user data
+  const { user, setUser, logout } = useContext(AuthContext); 
   const [username, setUsername] = useState(user?.username || '');
   const [email, setEmail] = useState(user?.email || '');
   const [password, setPassword] = useState('');
   const [profilePhoto, setProfilePhoto] = useState(null);
-  const [message, setMessage] = useState(''); // Success or error messages
+  const [message, setMessage] = useState(''); 
   const [showPopup, setShowPopup] = useState(false);
-  const [showConfirmation, setShowConfirmation] = useState(false); // For delete confirmation modal
+  const [showConfirmation, setShowConfirmation] = useState(false); 
   const navigate = useNavigate();
 
   const handleFileChange = (e) => {
@@ -40,12 +40,12 @@ const ProfileEditPage = () => {
       });
 
       
-      setUser(response.data); // Update the user context with new data
+      setUser(response.data); 
       setMessage('Your account has been successfully updated!');
-      setShowPopup(true); // Show success message
+      setShowPopup(true); 
     } catch (err) {
       setMessage(err.response?.data?.message || 'An error occurred.');
-      setShowPopup(true); // Show error popup
+      setShowPopup(true); 
     }
   };
 
@@ -56,8 +56,8 @@ const ProfileEditPage = () => {
           authorization: `Bearer ${localStorage.getItem('token')}`,
         },
       });
-      logout(); // Clear user session
-      navigate('/'); // Redirect to home
+      logout(); 
+      navigate('/'); 
     } catch (err) {
       setMessage(err.response?.data?.message || 'An error occurred.');
       setShowPopup(true);

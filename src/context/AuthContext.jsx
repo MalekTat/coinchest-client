@@ -5,8 +5,8 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [authToken, setAuthToken] = useState(localStorage.getItem("token") || null);
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")) || null);
-  const [currency, setCurrency] = useState("USD"); // Default currency
-  const [theme, setTheme] = useState("light"); // Default theme
+  const [currency, setCurrency] = useState("USD");
+  const [theme, setTheme] = useState("light"); 
 
   const login = (token, userData) => {
     setAuthToken(token);
@@ -24,7 +24,7 @@ export const AuthProvider = ({ children }) => {
 
   const toggleTheme = () => setTheme((prev) => (prev === "light" ? "dark" : "light"));
   useEffect(() => {
-    document.body.className = theme; // Apply theme class to body
+    document.body.className = theme;
   }, [theme]);
 
   const toggleCurrency = () => setCurrency((prev) => (prev === "USD" ? "EUR" : "USD"));

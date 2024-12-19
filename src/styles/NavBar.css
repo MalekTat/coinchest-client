@@ -129,7 +129,7 @@
 .submenu {
   position: absolute;
   top: 0;
-  left: -240px; /* Adjusted to align perfectly to the left */
+  left: -240px; 
   background-color: var(--card-background-color);
   color: var(--text-color);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
