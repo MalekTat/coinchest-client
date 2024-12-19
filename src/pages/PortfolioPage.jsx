@@ -22,6 +22,15 @@ const PortfolioPage = () => {
     fetchCryptoList();
   }, [currency]);
 
+  useEffect(() => {
+    if (currentPrice !== null) {
+      setFormData((prevData) => ({
+        ...prevData,
+        price: currentPrice.toFixed(2),
+      }));
+    }
+  }, [currentPrice]);
+
   const fetchPortfolio = async () => {
     try {
       const response = await axios.get(`${SERVER_BaseURL}/api/portfolio`, {
@@ -56,7 +65,7 @@ const PortfolioPage = () => {
       const response = await axios.get(`${SERVER_BaseURL}/api/crypto/${cryptoId}`);
       const price = response.data.market_data.current_price.usd;
       setCurrentPrice(price);
-      console.log(currentPrice)
+      console.log(price)
     } catch (err) {
       console.error('Error fetching current price:', err.message);
     }
@@ -77,14 +86,16 @@ const PortfolioPage = () => {
     setProfitLossData(barData);
   };
 
-  const handleInputChange = (e) => {
+  const handleInputChange = async (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
 
     if (name === 'cryptoId') {
       const selected = cryptoList.find((crypto) => crypto.id === value);
       setSelectedCrypto(selected);
-      fetchCurrentPrice(value);
+      if (value) {
+        await fetchCurrentPrice(value); 
+      }
     }
   };
 
@@ -235,7 +246,7 @@ const PortfolioPage = () => {
             </label>
             <label>
               {isBuying ? 'Purchase Price' : 'Sell Price'}:
-              <input type="number" name="price" value={formData.price || (currentPrice ? currentPrice.toFixed(2) : '')} onChange={handleInputChange} required />
+              <input type="number" name="price" value={formData.price} onChange={handleInputChange} required />
             </label>
             </div>
             <div className='third-line'>

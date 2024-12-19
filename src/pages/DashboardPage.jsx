@@ -59,18 +59,30 @@ const DashboardPage = () => {
   const fetchHistoricalData = async (cryptoId, days) => {
     setLoading(true);
     try {
-      const response = await axios.get(`${SERVER_BaseURL}/api/crypto/${cryptoId}/history`, {
-        params: { days },
-      });
-      const rawData= response.data.prices.map(([timestamp, price]) => ({
+
+      const [historyResponse, currentPriceResponse] = await Promise.all([
+        axios.get(`${SERVER_BaseURL}/api/crypto/${cryptoId}/history`, { params: { days } }),
+        axios.get(`${SERVER_BaseURL}/api/crypto/${cryptoId}`)
+      ]);
+
+      const rawData = historyResponse.data.prices.map(([timestamp, price]) => ({
         date: new Date(timestamp).toLocaleDateString(),
         price,
       }));
 
+      // Sample historical data to reduce the number of points
       const step = Math.ceil(rawData.length / 30); 
       const sampledData = rawData.filter((_, index) => index % step === 0);
 
-      setHistoricalData(sampledData);
+      
+      const currentPrice = currentPriceResponse.data.market_data.current_price.usd;
+      const currentPriceData = {
+        date: 'Now',
+        price: currentPrice,
+      };
+
+      const updatedData = [...sampledData, currentPriceData];
+      setHistoricalData(updatedData);
     } catch (error) {
       console.error('Error fetching historical data:', error.message);
     } finally {

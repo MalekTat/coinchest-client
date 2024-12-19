@@ -23,6 +23,18 @@ const AlertsPage = () => {
     fetchCryptoList();
     fetchAlerts();
   }, []);
+  
+
+  useEffect(() => {
+    fetchAlerts(); // Fetch alerts immediately when the page loads
+  
+    const intervalId = setInterval(() => {
+      fetchAlerts(); // Fetch alerts every 5 minutes
+    }, 10000); // 1 minutes in milliseconds
+  
+    return () => clearInterval(intervalId); // Clear interval on component unmount
+  }, []);
+
 
   const fetchCryptoList = async () => {
     try {
