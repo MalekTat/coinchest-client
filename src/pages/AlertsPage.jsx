@@ -26,13 +26,28 @@ const AlertsPage = () => {
   
 
   useEffect(() => {
-    fetchAlerts(); // Fetch alerts immediately when the page loads
+
+    const fetchAndProcessAlerts = async () => {
+      try {
+        await axios.post(`${SERVER_BaseURL}/api/process-alerts`, null, {
+          headers: { authorization: `Bearer ${localStorage.getItem('token')}` },
+        });
+  
+        // Fetch the updated alerts
+        await fetchAlerts();
+      } catch (error) {
+        console.error('Error processing alerts or fetching alerts:', error.message);
+      }
+    };
+  
+    // Initial call to process alerts and fetch
+    fetchAndProcessAlerts();
   
     const intervalId = setInterval(() => {
-      fetchAlerts(); // Fetch alerts every 5 minutes
-    }, 10000); // 1 minutes in milliseconds
+      fetchAndProcessAlerts(); // Trigger processAlerts and fetch alerts every 10 seconds
+    }, 8000); // 8 seconds
   
-    return () => clearInterval(intervalId); // Clear interval on component unmount
+    return () => clearInterval(intervalId); // Cleanup on unmount
   }, []);
 
 
