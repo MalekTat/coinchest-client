@@ -45,7 +45,7 @@ const AlertsPage = () => {
   
     const intervalId = setInterval(() => {
       fetchAndProcessAlerts(); // Trigger processAlerts and fetch alerts every 10 seconds
-    }, 8000); // 8 seconds
+    }, 5000); // 8 seconds
   
     return () => clearInterval(intervalId); // Cleanup on unmount
   }, []);
